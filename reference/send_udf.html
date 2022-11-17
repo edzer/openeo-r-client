@@ -21,7 +21,7 @@ at https://github.com/Open-EO/openeo-r-udf/tree/master/examples/data."><meta pro
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openeo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -36,7 +36,22 @@ at https://github.com/Open-EO/openeo-r-udf/tree/master/examples/data."><meta pro
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/getting_started.html">Getting Started</a>
+      <a href="../articles/openeo-01-getting_started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-02-sample_data.html">Sample Data Retrieval</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-03-package-software-architecture.html">Software and Package Architecture</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-04-process_graph_concepts.html">Process Graph Building</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-05-process_graph_building_application.html">Process Graph Building Application</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-06-developer_implementation_details.html">Developer Implementation Details</a>
     </li>
   </ul></li>
 <li>
@@ -71,50 +86,73 @@ at <a href="https://github.com/Open-EO/openeo-r-udf/tree/master/examples/data" c
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">send_udf</span><span class="op">(</span>
-  <span class="va">data</span>,
-  <span class="va">code</span>,
-  host <span class="op">=</span> <span class="st">"http://localhost"</span>,
-  port <span class="op">=</span> <span class="cn">NULL</span>,
-  language <span class="op">=</span> <span class="st">"R"</span>,
-  debug <span class="op">=</span> <span class="cn">FALSE</span>,
-  user_context <span class="op">=</span> <span class="cn">NA</span>,
-  server_context <span class="op">=</span> <span class="cn">NA</span>,
-  download_info <span class="op">=</span> <span class="cn">FALSE</span>,
-  legacy <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">send_udf</span><span class="op">(</span></span>
+<span>  <span class="va">data</span>,</span>
+<span>  <span class="va">code</span>,</span>
+<span>  host <span class="op">=</span> <span class="st">"http://localhost"</span>,</span>
+<span>  port <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  language <span class="op">=</span> <span class="st">"R"</span>,</span>
+<span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  user_context <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  server_context <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  download_info <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  legacy <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>data</dt>
 <dd><p>file path or a list object with the UDF-API data object</p></dd>
+
+
 <dt>code</dt>
 <dd><p>a call object or a file path of the user defined code</p></dd>
+
+
 <dt>host</dt>
 <dd><p>URL to the UDF service</p></dd>
+
+
 <dt>port</dt>
 <dd><p>(optional) port of the UDF service host</p></dd>
+
+
 <dt>language</dt>
 <dd><p>programming language (R or Python) of the source code</p></dd>
+
+
 <dt>debug</dt>
 <dd><p>(optional) logical - Switch on / off debugging information</p></dd>
+
+
 <dt>user_context</dt>
 <dd><p>list - Context parameter that are shipped from the user into the udf_service</p></dd>
+
+
 <dt>server_context</dt>
 <dd><p>list - Context usually sent from the back-end to trigger certain settings</p></dd>
+
+
 <dt>download_info</dt>
-<dd><p>(optional) logical - Whether or not to print the time taken separately for 
+<dd><p>(optional) logical - Whether or not to print the time taken separately for
 the download</p></dd>
+
+
 <dt>legacy</dt>
 <dd><p>logical - Whether or not the legacy endpoint is used (default: FALSE)</p></dd>
+
+
 <dt>...</dt>
 <dd><p>parameters passed on to httr::content or to be more precise to jsonlite::fromJSON</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>the textual JSON representation of the result</p>
+    
+
+<p>the textual JSON representation of the result</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -122,30 +160,30 @@ the download</p></dd>
     </div>
     <div id="note">
     <h2>Note</h2>
-    <p>The debug options are only available for the R-UDF service. The R UDF-API version has to be of version 0.1.0 (not the old alpha 
-version). You might want to check <a href="https://github.com/Open-EO/openeo-r-udf#running-the-api-locally" class="external-link">https://github.com/Open-EO/openeo-r-udf#running-the-api-locally</a> for setting up a local 
+    <p>The debug options are only available for the R-UDF service. The R UDF-API version has to be of version 0.1.0 (not the old alpha
+version). You might want to check <a href="https://github.com/Open-EO/openeo-r-udf#running-the-api-locally" class="external-link">https://github.com/Open-EO/openeo-r-udf#running-the-api-locally</a> for setting up a local
 service for debugging.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="va">port</span> <span class="op">=</span> <span class="fl">5555</span></span>
-<span class="r-in"><span class="va">host</span> <span class="op">=</span> <span class="st">"http://localhost"</span> </span>
-<span class="r-in"><span class="va">script</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="op">{</span></span>
-<span class="r-in">  <span class="va">all_dim</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">ndvi_result</span> <span class="op">=</span> <span class="fu">st_apply</span><span class="op">(</span><span class="va">data</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span>,<span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">    <span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="fl">8</span><span class="op">]</span><span class="op">-</span><span class="va">X</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="fl">8</span><span class="op">]</span><span class="op">+</span><span class="va">X</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in">  <span class="op">}</span>, MARGIN <span class="op">=</span> <span class="va">all_dim</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">all_dim</span><span class="op">==</span><span class="st">"band"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">all_dim</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ndvi_result</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in">  <span class="va">min_ndvi</span> <span class="op">=</span> <span class="fu">st_apply</span><span class="op">(</span><span class="va">ndvi_result</span>,FUN <span class="op">=</span> <span class="va">min</span>, MARGIN <span class="op">=</span> <span class="va">all_dim</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">all_dim</span><span class="op">==</span><span class="st">"t"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in">  <span class="va">min_ndvi</span></span>
-<span class="r-in"><span class="op">}</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">result</span> <span class="op">=</span> <span class="fu">send_udf</span><span class="op">(</span>data <span class="op">=</span> <span class="st">"hypercube.json"</span>,code <span class="op">=</span> <span class="va">script</span>,host<span class="op">=</span><span class="va">host</span>,port<span class="op">=</span><span class="va">port</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">port</span> <span class="op">=</span> <span class="fl">5555</span></span></span>
+<span class="r-in"><span><span class="va">host</span> <span class="op">=</span> <span class="st">"http://localhost"</span> </span></span>
+<span class="r-in"><span><span class="va">script</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="va">all_dim</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">ndvi_result</span> <span class="op">=</span> <span class="fu">st_apply</span><span class="op">(</span><span class="va">data</span>, FUN <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">X</span>,<span class="va">...</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>    <span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="fl">8</span><span class="op">]</span><span class="op">-</span><span class="va">X</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">X</span><span class="op">[</span><span class="fl">8</span><span class="op">]</span><span class="op">+</span><span class="va">X</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="op">}</span>, MARGIN <span class="op">=</span> <span class="va">all_dim</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">all_dim</span><span class="op">==</span><span class="st">"band"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">all_dim</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ndvi_result</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">min_ndvi</span> <span class="op">=</span> <span class="fu">st_apply</span><span class="op">(</span><span class="va">ndvi_result</span>,FUN <span class="op">=</span> <span class="va">min</span>, MARGIN <span class="op">=</span> <span class="va">all_dim</span><span class="op">[</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">all_dim</span><span class="op">==</span><span class="st">"t"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span>  <span class="va">min_ndvi</span></span></span>
+<span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">result</span> <span class="op">=</span> <span class="fu">send_udf</span><span class="op">(</span>data <span class="op">=</span> <span class="st">"hypercube.json"</span>,code <span class="op">=</span> <span class="va">script</span>,host<span class="op">=</span><span class="va">host</span>,port<span class="op">=</span><span class="va">port</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -160,7 +198,7 @@ service for debugging.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

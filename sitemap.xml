@@ -7,10 +7,25 @@
     <loc>/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/articles/getting_started.html</loc>
+    <loc>/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>/articles/openeo-01-getting_started.html</loc>
+  </url>
+  <url>
+    <loc>/articles/openeo-02-sample_data.html</loc>
+  </url>
+  <url>
+    <loc>/articles/openeo-03-package-software-architecture.html</loc>
+  </url>
+  <url>
+    <loc>/articles/openeo-04-process_graph_concepts.html</loc>
+  </url>
+  <url>
+    <loc>/articles/openeo-05-process_graph_building_application.html</loc>
+  </url>
+  <url>
+    <loc>/articles/openeo-06-developer_implementation_details.html</loc>
   </url>
   <url>
     <loc>/authors.html</loc>
@@ -68,6 +83,9 @@
   </url>
   <url>
     <loc>/reference/Kernel.html</loc>
+  </url>
+  <url>
+    <loc>/reference/MetadataFilter.html</loc>
   </url>
   <url>
     <loc>/reference/Number.html</loc>
@@ -151,6 +169,9 @@
     <loc>/reference/as.Process.html</loc>
   </url>
   <url>
+    <loc>/reference/as.bbox.html</loc>
+  </url>
+  <url>
     <loc>/reference/as.data.frame.html</loc>
   </url>
   <url>
@@ -226,6 +247,9 @@
     <loc>/reference/dimensions.html</loc>
   </url>
   <url>
+    <loc>/reference/disconnect.html</loc>
+  </url>
+  <url>
     <loc>/reference/download_file.html</loc>
   </url>
   <url>
@@ -235,7 +259,7 @@
     <loc>/reference/estimate_job.html</loc>
   </url>
   <url>
-    <loc>/reference/graphToJSON.html</loc>
+    <loc>/reference/get_sample.html</loc>
   </url>
   <url>
     <loc>/reference/group_ops.html</loc>
@@ -295,6 +319,9 @@
     <loc>/reference/logs.html</loc>
   </url>
   <url>
+    <loc>/reference/openeo-deprecated.html</loc>
+  </url>
+  <url>
     <loc>/reference/parse_graph.html</loc>
   </url>
   <url>
@@ -319,6 +346,9 @@
     <loc>/reference/send_udf.html</loc>
   </url>
   <url>
+    <loc>/reference/st_bbox.ProcessNode.html</loc>
+  </url>
+  <url>
     <loc>/reference/start_job.html</loc>
   </url>
   <url>
@@ -332,6 +362,12 @@
   </url>
   <url>
     <loc>/reference/terms_of_service.html</loc>
+  </url>
+  <url>
+    <loc>/reference/toJSON-deprecated.html</loc>
+  </url>
+  <url>
+    <loc>/reference/toJSON.html</loc>
   </url>
   <url>
     <loc>/reference/unary_ops.html</loc>

@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openeo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -33,7 +33,22 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/getting_started.html">Getting Started</a>
+      <a href="../articles/openeo-01-getting_started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-02-sample_data.html">Sample Data Retrieval</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-03-package-software-architecture.html">Software and Package Architecture</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-04-process_graph_concepts.html">Process Graph Building</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-05-process_graph_building_application.html">Process Graph Building Application</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-06-developer_implementation_details.html">Developer Implementation Details</a>
     </li>
   </ul></li>
 <li>
@@ -65,22 +80,30 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">download_results</span><span class="op">(</span><span class="va">job</span>, <span class="va">folder</span>, con <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">download_results</span><span class="op">(</span><span class="va">job</span>, <span class="va">folder</span>, con <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>job</dt>
-<dd><p>job object or the job_id for which the results are fetched</p></dd>
+<dd><p>job object or the job_id for which the results are fetched. Also the return value of
+<code><a href="list_results.html">list_results()</a></code> or its 'assets' field is also accepted.</p></dd>
+
+
 <dt>folder</dt>
 <dd><p>a character string that is the target path on the local computer</p></dd>
+
+
 <dt>con</dt>
-<dd><p>a connected and authenticated openEO connection (optional) otherwise <code><a href="active_connection.html">active_connection</a></code>
+<dd><p>a connected and authenticated openEO connection (optional) otherwise <code><a href="active_connection.html">active_connection()</a></code>
 is used.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a list of the target file paths</p>
+    
+
+<p>a list of the target file paths or NULL if 'job' was incorrect</p>
     </div>
 
   </div>
@@ -95,7 +118,7 @@ is used.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

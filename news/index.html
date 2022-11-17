@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">openeo</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.0</span>
       </span>
     </div>
 
@@ -32,7 +32,22 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/getting_started.html">Getting Started</a>
+      <a href="../articles/openeo-01-getting_started.html">Getting Started</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-02-sample_data.html">Sample Data Retrieval</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-03-package-software-architecture.html">Software and Package Architecture</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-04-process_graph_concepts.html">Process Graph Building</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-05-process_graph_building_application.html">Process Graph Building Application</a>
+    </li>
+    <li>
+      <a href="../articles/openeo-06-developer_implementation_details.html">Developer Implementation Details</a>
     </li>
   </ul></li>
 <li>
@@ -58,13 +73,177 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.3.0" id="version-130">Version 1.3.0<a class="anchor" aria-label="anchor" href="#version-130"></a></h2>
+<div class="section level3">
+<h3 id="added-1-3-0">Added<a class="anchor" aria-label="anchor" href="#added-1-3-0"></a></h3>
+<ul><li>new vignettes:<ul><li>Package Software Architecture</li>
+<li>Process Graph Building Concepts</li>
+<li>Process Graph Building Application</li>
+<li>Developer Implementation Details</li>
+</ul></li>
+<li>added the default openEO processes v1.2.0 as test data to the package in the RDS file format (<code>system.file("openeo_processes/openeo_process_1.2.0.rds")</code>) and added a test case for process parsing</li>
+<li>
+<code>active_process_list()</code> and <code><a href="../reference/processes.html">active_process_collection()</a></code> which refer to the currently connected back-ends process list as well as the package interpretation of those process descriptions. See environment variables <code>process_list</code> and <code>process_collection</code>
+</li>
+<li>
+<code><a href="../reference/list_collections.html">active_data_collection()</a></code> to fetch the data collection of the currently active back-end, which refers to the package variable <code>data_collection</code>
+</li>
+<li>vignette about the software and package architecture and design choices based on API requirements</li>
+</ul></div>
+<div class="section level3">
+<h3 id="changed-1-3-0">Changed<a class="anchor" aria-label="anchor" href="#changed-1-3-0"></a></h3>
+<ul><li>added line breaks if there are multiple validation messages of ProcessNodes</li>
+<li>
+<code><a href="../reference/describe_process.html">describe_process()</a></code> also works now with <code>Process</code> and <code>ProcessNode</code> objects</li>
+<li>use the active process list when looking up the description of an openEO process</li>
+<li>package now depends on R &gt; 3.5.0, because of RDS object de-/serialization (openEO test processes)</li>
+<li>added a warning and a note for <code><a href="../reference/compute_result.html">compute_result()</a></code> if neither parameter ‘format’ of the function was set nor process ‘save_result’ was used in the process graph</li>
+<li>refresh data collections after separate login as part of <a href="https://github.com/Open-EO/openeo-r-client/issues/83" class="external-link">#83</a>
+</li>
+<li>improved disconnection behavior by adding a <code><a href="../reference/disconnect.html">disconnect()</a></code> function and a logout and disconnect on package unload</li>
+<li>decoupled processes and data collection from the OpenEO connection</li>
+<li>moved the setup of the RStudio connection observer into a separate helper function</li>
+<li>naming of the vignettes to achieve an order in the vignette index entries</li>
+</ul></div>
+<div class="section level3">
+<h3 id="fixes-1-3-0">Fixes<a class="anchor" aria-label="anchor" href="#fixes-1-3-0"></a></h3>
+<ul><li>
+<code><a href="../reference/variables.html">variables()</a></code> function now returns the extracted variables correctly</li>
+<li>coercion problems from checking with is.na on values with length &gt; 1 have been fixed by using rlang::is_na <a href="https://github.com/Open-EO/openeo-r-client/issues/130" class="external-link">#130</a>, <a href="https://github.com/Open-EO/openeo-r-client/issues/123" class="external-link">#123</a>
+</li>
+<li>an issue when calling the JSON serialization of class Process</li>
+</ul></div>
+<div class="section level3">
+<h3 id="removed-1-3-0">Removed<a class="anchor" aria-label="anchor" href="#removed-1-3-0"></a></h3>
+<ul><li>removed utility functions <code>.getProcessCollection()</code> and <code>.find_var_in_stack()</code> which are replaced by the <code><a href="../reference/processes.html">active_process_collection()</a></code> function</li>
+<li>functions to call data collection (<code>$getCollectionNames()</code>, <code>$getDataCollection()</code>) from connection as well as the fields (<code>private$data_collection</code>)</li>
+<li>functions (<code>$getProcessCollection()</code>) and fields (<code>private$process_collection</code>, <code>$processes</code>) to store the process list and process collection</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.2.2" id="version-122">Version 1.2.2<small>2022-10-17</small><a class="anchor" aria-label="anchor" href="#version-122"></a></h2>
+<div class="section level3">
+<h3 id="changed-1-2-2">Changed<a class="anchor" aria-label="anchor" href="#changed-1-2-2"></a></h3>
+<ul><li>allowed objects as values for argument BoundingBox where <code><a href="https://r-spatial.github.io/sf/reference/st_bbox.html" class="external-link">st_bbox()</a></code> can be applied</li>
+<li>very minor refinement in argument UdfCode and added test case <a href="https://github.com/Open-EO/openeo-r-client/issues/132" class="external-link">#132</a>
+</li>
+<li>now throws a more readable error when the authentication provider is missing in the wellknown document</li>
+</ul></div>
+<div class="section level3">
+<h3 id="fixes-1-2-2">Fixes<a class="anchor" aria-label="anchor" href="#fixes-1-2-2"></a></h3>
+<ul><li>OIDC authentication on remote machines prints now correctly URL and device code after fixes in httr2 package, now version 0.2.2 or higher is required (<a href="https://github.com/m-mohr" class="external-link">@m-mohr</a>, <a href="https://github.com/flahn" class="external-link">@flahn</a>, <a href="https://github.com/Open-EO/openeo-r-client/pull/131" class="external-link">#131</a>, <a href="https://github.com/Open-EO/openeo-r-client/pull/119" class="external-link">#119</a>)</li>
+<li>remote environments now login with <code>rlang::is_interactive() == FALSE</code> so that for example Jupyter environments print the device code URL and the code instead of trying to open the systems internet browser <a href="https://github.com/Open-EO/openeo-r-client/issues/128" class="external-link">#128</a>
+</li>
+<li>capabilities request no longer appends an additional “/” to the host, which caused problems with some back-ends (<a href="https://github.com/m-mohr" class="external-link">@m-mohr</a> <a href="https://github.com/Open-EO/openeo-r-client/pull/133" class="external-link">#133</a>, <a href="https://github.com/Open-EO/openeo-r-client/issues/134" class="external-link">#134</a>)</li>
+<li>
+<code>download_results</code> could not interprete a Job object due to the <code>length(job) != 1</code> restriction</li>
+<li>added a Job to Process coercion to match the messages instruction, when printing a Job <a href="https://github.com/Open-EO/openeo-r-client/issues/115" class="external-link">#115</a>
+</li>
+<li>during JSON serialization numbers were truncated to a certain amount of digits. Setting <code>digits=NA</code> during serialization removes the default value for the digits <a href="https://github.com/Open-EO/openeo-r-client/issues/64" class="external-link">#64</a>
+</li>
+<li>fixed parameter in logout query (req -&gt; .req)</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.2.1" id="version-121">version 1.2.1<small>2022-06-24</small><a class="anchor" aria-label="anchor" href="#version-121"></a></h2>
+<div class="section level3">
+<h3 id="added-1-2-1">Added<a class="anchor" aria-label="anchor" href="#added-1-2-1"></a></h3>
+<ul><li>allowed a Process object to be passed to <code>validate_process</code>
+</li></ul></div>
+<div class="section level3">
+<h3 id="changed-1-2-1">Changed<a class="anchor" aria-label="anchor" href="#changed-1-2-1"></a></h3>
+<ul><li>not serializing basic <code>Argument</code> if not required, which affects mostly the “context” parameter of reducer functions</li>
+<li>skip local validation of <code>Array</code> type if there is more than one sub type allowed</li>
+<li>adapted GeoJSON coordinate order, now <a href="urn:ogc:def:crs:OGC" class="uri">urn:ogc:def:crs:OGC</a>::CRS84 is used as CRS, which means longitude / latitude order</li>
+</ul></div>
+<div class="section level3">
+<h3 id="fixes-1-2-1">Fixes<a class="anchor" aria-label="anchor" href="#fixes-1-2-1"></a></h3>
+<ul><li>compute_result now correctly swaps the file format from save_result, if it was already used in the process graph <a href="https://github.com/Open-EO/openeo-r-client/issues/124" class="external-link">#124</a>
+</li>
+<li>fixed messages thrown when validating arrays with multiple different allowed element types</li>
+<li>fixed missing NA / NULL setting in GeoJSON argument</li>
+<li>fixed missing brackets in coercion from Process to Graph</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.2.0" id="version-120">version 1.2.0<small>2022-05-09</small><a class="anchor" aria-label="anchor" href="#version-120"></a></h2>
+<div class="section level3">
+<h3 id="added-1-2-0">Added<a class="anchor" aria-label="anchor" href="#added-1-2-0"></a></h3>
+<ul><li>implemented a method for sample data retrieval (<code><a href="../reference/get_sample.html">get_sample()</a></code>), which will modify a process graph by replacing the original spatial extent of the request with a smaller subset of 0.0003 degrees extent <a href="https://github.com/Open-EO/openeo-r-client/issues/94" class="external-link">#94</a>
+</li>
+<li>added a vignette explaining sample data retrieval</li>
+<li>rendering of classes as HTML widgets using the openEO Vue components, which can be used in Jupyter Notebook, Rmarkdown, RStudio and knitr</li>
+<li>implemented the argument type <code>metadata-filter</code> in order to filter collections based on a list of functions mostly applied in <code>load_collection</code> <a href="https://github.com/Open-EO/openeo-r-client/issues/102" class="external-link">#102</a>
+</li>
+<li>implemented an abstract OIDC authentication</li>
+<li>implemented OIDC authentications for the following grant types:<ul><li>authorization_code</li>
+<li>authorization_code+pkce</li>
+<li><a href="urn:ietf:params:oauth:grant-type:device_code+pkce" class="uri">urn:ietf:params:oauth:grant-type:device_code+pkce</a></li>
+<li>
+<a href="urn:ietf:params:oauth:grant-type:device_code" class="uri">urn:ietf:params:oauth:grant-type:device_code</a> <a href="https://github.com/Open-EO/openeo-r-client/issues/116" class="external-link">#116</a>
+</li>
+</ul></li>
+<li>temporarily added changed code to realize device_code+pkce from the <code>httr2</code> package until the <code>httr2</code> package changes are made available on CRAN<ul><li>PR at httr2 <a href="https://github.com/r-lib/httr2/pull/109" class="external-link">r-lib/httr2#109</a>
+</li></ul></li>
+<li>overloaded function <code>toJSON</code> for <code>Process</code> and <code>Graph</code><ul><li>
+<code>processToJSON</code> to easily convert a process to JSON</li>
+<li>
+<code>processToJSON</code> and <code>graphToJSON</code> are marked as deprecated</li>
+</ul></li>
+</ul></div>
+<div class="section level3">
+<h3 id="fixes-1-2-0">Fixes<a class="anchor" aria-label="anchor" href="#fixes-1-2-0"></a></h3>
+<ul><li>
+<code>process_viewer</code> for user defined processes <a href="https://github.com/Open-EO/openeo-r-client/issues/110" class="external-link">#110</a>
+</li></ul></div>
+<div class="section level3">
+<h3 id="changed-1-2-0">Changed<a class="anchor" aria-label="anchor" href="#changed-1-2-0"></a></h3>
+<ul><li>
+<code><a href="../reference/compute_result.html">compute_result()</a></code> will set or override existing <code>save_result</code> node entries when parameter <code>format</code> is provided <a href="https://github.com/Open-EO/openeo-r-client/issues/62" class="external-link">#62</a>
+</li>
+<li>
+<code><a href="../reference/compute_result.html">compute_result()</a></code> will return a <code>stars</code> object if the parameter <code>as_stars</code> is set TRUE <a href="https://github.com/Open-EO/openeo-r-client/issues/39" class="external-link">#39</a>
+</li>
+<li>
+<code><a href="../reference/download_results.html">download_results()</a></code> uses httr2 functions instead of <code><a href="https://rdrr.io/r/utils/download.file.html" class="external-link">download.file()</a></code> <a href="https://github.com/Open-EO/openeo-r-client/issues/108" class="external-link">#108</a>, also parameter <code>job</code> is allowed to be a ResultList or AssetList</li>
+<li>
+<code>timeout</code> parameter in <code><a href="../reference/logs.html">logs()</a></code> is now optional. If omitted 60s timeout is used for active batch processes and enabled services <a href="https://github.com/Open-EO/openeo-r-client/issues/109" class="external-link">#109</a>
+</li>
+<li>replaced package <code>httr</code> by <code>httr2</code> to include the device_code and PKCE authentication methods</li>
+<li>
+<code>connect</code> no longer carries the login parameters separately, but uses <code>...</code> to pass on those information</li>
+<li>added ‘kableExtra’ as suggest to render the tables prettier in knitr</li>
+</ul></div>
+<div class="section level3">
+<h3 id="removed-1-2-0">Removed<a class="anchor" aria-label="anchor" href="#removed-1-2-0"></a></h3>
+<ul><li>login parameter <code>login_type</code> removed. type will be deduced based on the other parameters.</li></ul></div>
+</div>
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="1.1.1" id="version-111">version 1.1.1<a class="anchor" aria-label="anchor" href="#version-111"></a></h2>
+<div class="section level3">
+<h3 id="added-1-1-1">Added<a class="anchor" aria-label="anchor" href="#added-1-1-1"></a></h3>
+<ul><li>in addition to integer it is now allowed to state text as input for argument <code>EPSGCode</code> like <em>EPSG:4326</em> <a href="https://github.com/Open-EO/openeo-r-client/issues/99" class="external-link">#99</a> and wrote a test case for that</li>
+<li>Started test case for <code>OpenEOClient</code>
+</li>
+<li>Test case for <code>Boolean</code> argument validation</li>
+</ul></div>
+<div class="section level3">
+<h3 id="fixes-1-1-1">Fixes<a class="anchor" aria-label="anchor" href="#fixes-1-1-1"></a></h3>
+<ul><li>fixed an issue with token refreshment, where the expiry time was not set correctly <a href="https://github.com/Open-EO/openeo-r-client/issues/101" class="external-link">#101</a>
+</li>
+<li>fixed an issue where the host URL was not recognized and treated missing <a href="https://github.com/Open-EO/openeo-r-client/issues/100" class="external-link">#100</a>
+</li>
+<li>fixed a validation problem of the Boolean argument when a <code>ProcessNode</code> was passed as a value</li>
+<li>fixed a problem with the overloaded R operators for <code>|</code>, <code>&amp;</code> and <code>xor</code> where an old signature of the corresponding openEO process was used</li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.1.0" id="version-110">version 1.1.0<small>2021-11-08</small><a class="anchor" aria-label="anchor" href="#version-110"></a></h2>
 <p>Bugfixes and preparation for CRAN release, ‘openEO API’ version 1.1.0</p>
 <div class="section level3">
 <h3 id="added-1-1-0">Added<a class="anchor" aria-label="anchor" href="#added-1-1-0"></a></h3>
 <ul><li>added a vignette for getting started <a href="https://github.com/Open-EO/openeo-r-client/issues/81" class="external-link">#81</a>
-</li>
-</ul></div>
+</li></ul></div>
 <div class="section level3">
 <h3 id="changes-1-1-0">Changes<a class="anchor" aria-label="anchor" href="#changes-1-1-0"></a></h3>
 <ul><li>clarified the currently used OIDC code flow and adapted documentation <a href="https://github.com/Open-EO/openeo-r-client/issues/71" class="external-link">#71</a>
@@ -121,8 +300,7 @@
 <li>function <code><a href="../reference/conformance.html">conformance()</a></code> operated on the new corresponding API endpoint</li>
 <li>added class <code>ProcessCollection</code> in order to divide the Graph object and the graph building. It is created upon connection and obtainable via <code><a href="../reference/processes.html">processes()</a></code>.</li>
 <li>added a function <code><a href="../reference/logs.html">logs()</a></code>, <code><a href="../reference/log_job.html">log_job()</a></code> and <code><a href="../reference/log_service.html">log_service()</a></code> to request the back-end logs of a job or a service. The logging blocks the console and requests every second an update of the log at the back-end. Also when queuing a job via <code><a href="../reference/start_job.html">start_job()</a></code> an immediate logging can be triggered.</li>
-<li>added S3 class labels, coerce and print functions for some exchange object:
-<ul><li>
+<li>added S3 class labels, coerce and print functions for some exchange object:<ul><li>
 <code>FileFormatList</code> (<code>as.data.frame.FileFormaList</code>)</li>
 <li>
 <code>FileFormat</code> (<code>print.FileFormat</code>)</li>
@@ -181,8 +359,7 @@
 <code>ProcessGraph</code> as a parameter requires a function wrapping - meaning you should not pass an openEO process like <code>p$min</code> directly, because with the elaborated <code>ProcessGraphParameter</code> we cannot do a reliable automatic variable matching, e.g. often the <code>ProcessGraphParameter</code> “context” is misinterpreted</li>
 <li>updated and externalized the scripts in the <code>*_viewer()</code> functions to visualize collection and processes following the new api definition</li>
 <li>‘anyOf’ was dropped as a top-level parameter definition schema in the API. The parameter <code>anyOf</code> is still be used in the client.</li>
-<li>classes were renamed:
-<ul><li>
+<li>classes were renamed:<ul><li>
 <code>Callback</code> was renamed into <code>ProcessGraphArgument</code> (Graph is still a different Concept), which is used in reducer or aggregation functions</li>
 <li>
 <code>callback-value</code> was renamed into <code>ProcessGraphParameter</code>
@@ -191,8 +368,7 @@
 <li>unset <code>ProcessGraphParameter</code> are derived automatically from R functions that are passed as <code>ProcessGraphArgument</code> (former <code>Callback</code>) and they become parameters that shall be set by a user upon use of this user defined graph</li>
 <li>updated the endpoint file for version 1.0.0</li>
 <li>adapted the exchange models (JSON models) and their parsing / serialization to the new API accordingly, especially in the <code>print</code> functions</li>
-<li>harmonized various function behavior:
-<ul><li>
+<li>harmonized various function behavior:<ul><li>
 <code>update_*</code> and <code>create_*</code> functions return their respective object (e.g. <code>update_job</code> –&gt; <code>Job</code>) instead of their ID (previous behavior)</li>
 <li>
 <code>list_*</code> functions return a named list of those particular exchange objects (e.g. <code>list_jobs</code> –&gt; named list of <code>Job</code>)</li>
@@ -202,8 +378,7 @@
 <li>the user defined processes management exchanges now Process objects instead of former Graph objects with the back-end</li>
 <li>when creating and storing user defined processes on a back-end, they now require a distinct id selected by the user</li>
 <li>updating an user defined process is done via replacement, so the old representation is queried in the <code>update_process_graph</code> and merged with the new information given by the function parameter</li>
-<li>renamed functions
-<ul><li>
+<li>renamed functions<ul><li>
 <code><a href="../reference/list_file_formats.html">list_file_formats()</a></code> to <code><a href="../reference/list_file_formats.html">list_file_formats()</a></code>
 </li>
 <li>
@@ -266,20 +441,17 @@
 </ul></div>
 <div class="section level3">
 <h3 id="added-0-6-2">Added<a class="anchor" aria-label="anchor" href="#added-0-6-2"></a></h3>
-<ul><li>URI parameter</li>
-</ul></div>
+<ul><li>URI parameter</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.1" id="version-061">version 0.6.1<a class="anchor" aria-label="anchor" href="#version-061"></a></h2>
 <div class="section level3">
 <h3 id="fixed-0-6-1">Fixed<a class="anchor" aria-label="anchor" href="#fixed-0-6-1"></a></h3>
-<ul><li>fixed <a href="https://github.com/Open-EO/openeo-r-client/issues/46" class="external-link">#46</a> were the process link of arguments was not set correctly</li>
-</ul></div>
+<ul><li>fixed <a href="https://github.com/Open-EO/openeo-r-client/issues/46" class="external-link">#46</a> were the process link of arguments was not set correctly</li></ul></div>
 <div class="section level3">
 <h3 id="removed-0-6-1">Removed<a class="anchor" aria-label="anchor" href="#removed-0-6-1"></a></h3>
 <ul><li>package dependency <code>commonmark</code>
-</li>
-</ul></div>
+</li></ul></div>
 </div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="0.6.0" id="version-060">version 0.6.0<a class="anchor" aria-label="anchor" href="#version-060"></a></h2>
@@ -329,13 +501,13 @@
 <h3 id="changed-0-5-0">Changed<a class="anchor" aria-label="anchor" href="#changed-0-5-0"></a></h3>
 <ul><li>modified <code>connect</code> with new parameters <code>exchange_token</code> and <code>external</code>. With the latter we can specify ‘google’ as an external identity provider and with <code>exchange_token</code> we can specify if we send the default <code>access_token</code> or the <code>id_token</code> as Bearer token in the authentication header</li>
 <li>some endpoints allowed optional sending of a bearer token in the header, which was not yet considered. Added a function to check if a user has logged in (<code>OpenEOClient$isLoggedIn()</code>) and made it optional at the following endpoints to sent a Bearer token as Authorization-header depending on whether the user is logged in:</li>
-</ul><pre><code><span class="va">GET</span> <span class="op">/</span><span class="va">output_formats</span>
-<span class="va">GET</span> <span class="op">/</span><span class="va">udf_runtimes</span>
-<span class="va">GET</span> <span class="op">/</span><span class="va">service_types</span>
-<span class="va">GET</span> <span class="op">/</span><span class="va">collections</span>
-<span class="va">GET</span> <span class="op">/</span><span class="va">collections</span><span class="op">/</span><span class="op">{</span><span class="va">collection_id</span><span class="op">}</span>
-<span class="va">GET</span> <span class="op">/</span><span class="va">processes</span>
-<span class="va">POST</span> <span class="op">/</span><span class="va">validation</span></code></pre>
+</ul><pre><code><span><span class="va">GET</span> <span class="op">/</span><span class="va">output_formats</span></span>
+<span><span class="va">GET</span> <span class="op">/</span><span class="va">udf_runtimes</span></span>
+<span><span class="va">GET</span> <span class="op">/</span><span class="va">service_types</span></span>
+<span><span class="va">GET</span> <span class="op">/</span><span class="va">collections</span></span>
+<span><span class="va">GET</span> <span class="op">/</span><span class="va">collections</span><span class="op">/</span><span class="op">{</span><span class="va">collection_id</span><span class="op">}</span></span>
+<span><span class="va">GET</span> <span class="op">/</span><span class="va">processes</span></span>
+<span><span class="va">POST</span> <span class="op">/</span><span class="va">validation</span></span></code></pre>
 <ul><li>modified <code>gee-evi-example</code> now that the GEE driver supports all relevant openEO processes, it now creates the graph with apply, linear_scale and saves it as PNG; added also an example for the band_arithmetic use case</li>
 <li>client public function <code>client_version</code> was renamed into <code>api_version</code> and returns the openEO API version which the client uses</li>
 <li>graphs are initialized with a connection instead of the parsed processes list</li>
@@ -382,7 +554,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
